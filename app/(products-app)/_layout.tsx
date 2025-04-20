@@ -31,7 +31,7 @@ const CheckAuthenticationLayout = () => {
     }
 
 
-    if(status === 'unauthenticated'){
+    if (status === 'unauthenticated') {
         return <Redirect href='/auth/login' />
     }
 
@@ -48,11 +48,18 @@ const CheckAuthenticationLayout = () => {
                 }
             }}
         >
-            <Stack.Screen 
+            <Stack.Screen
                 name='(home)/index'
                 options={{
                     title: 'Productos',
                     headerLeft: () => <LogoutIconBotton />
+                }}
+            />
+
+            <Stack.Screen
+                name='(home)/product/[id]'
+                options={{
+                    title: 'Producto',
                 }}
             />
 
