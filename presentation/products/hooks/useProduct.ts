@@ -5,9 +5,11 @@ import { Product } from "@/core/products/interfaces/product.interface";
 import { Alert } from 'react-native';
 import { updateCreateProduct } from "@/core/products/actions/create-update-product.action";
 import { useRef } from "react";
+import { useCameraStore } from "@/presentation/store/useCameraStore";
 
 export const useProduct = (productId: string) => {
 
+  const {clearImages} = useCameraStore()
   const queryClient = useQueryClient();
   const productIdRef = useRef(productId);
 
@@ -28,6 +30,7 @@ export const useProduct = (productId: string) => {
     onSuccess(data: Product){
 
       productIdRef.current = data.id;
+      clearImages();
 
       queryClient.invalidateQueries({
         queryKey: ['products', 'infinite'],
@@ -36,6 +39,8 @@ export const useProduct = (productId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['product', data.id],
       })
+
+      console.log('hola')
 
       Alert.alert('Producto guardado', `${data.title} se guardo correctamente`)
 
